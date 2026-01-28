@@ -1,0 +1,85 @@
+sources:
+  casdoor:
+    repo: https://github.com/casdoor/casdoor
+    path: object
+  casvisor:
+    repo: https://github.com/casvisor/casvisor-go-sdk
+    path: casvisorsdk
+
+target: ../casdoorsdk
+
+structs:
+  - name: Adapter
+    source: casdoor
+    file: adapter.go
+  - name: Application
+    source: casdoor
+    file: application.go
+    include_types: [SigninMethod, SignupItem, SigninItem, SamlItem, JwtItem]
+  - name: Cert
+    source: casdoor
+    file: cert.go
+  - name: Enforcer
+    source: casdoor
+    file: enforcer.go
+  - name: Group
+    source: casdoor
+    file: group.go
+  - name: Model
+    source: casdoor
+    file: model.go
+  - name: Organization
+    source: casdoor
+    file: organization.go
+    include_types: [ThemeData, AccountItem, MfaItem]
+  - name: Payment
+    source: casdoor
+    file: payment.go
+  - name: Pricing
+    source: casdoor
+    file: pricing.go
+  - name: Product
+    source: casdoor
+    file: product.go
+  - name: Provider
+    source: casdoor
+    file: provider.go
+  - name: ProviderItem
+    source: casdoor
+    file: application.go
+    source_file: provider_item.go
+  - name: Record
+    source: casvisor
+    file: record.go
+  - name: Resource
+    source: casdoor
+    file: resource.go
+  - name: Session
+    source: casdoor
+    file: session.go
+  - name: Syncer
+    source: casdoor
+    file: syncer.go
+  - name: Token
+    source: casdoor
+    file: token.go
+  - name: Transaction
+    source: casdoor
+    file: transaction.go
+
+transform:
+  remove_tags:
+    - xorm
+  exclude_embedded:
+    - "*xormadapter.Adapter"
+    - "*casbin.Enforcer"
+    - "model.Model"
+    - "*ssh.Client"
+  type_mappings:
+    "pp.PaymentState": "string"
+    "TransactionCategory": "string"
+
+deprecation:
+  mark_removed: true
+  include_commit: false
+  auto_prune_after: 0
